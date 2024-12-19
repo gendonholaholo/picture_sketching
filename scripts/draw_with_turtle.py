@@ -6,9 +6,9 @@ def load_json_data(json_path):
         return json.load(file)
 
 def rgb_to_turtle_color(rgb):
-    if len(rgb) == 4:  
+    if len(rgb) == 4:
         return tuple(c / 255 for c in rgb[:3])  
-    elif len(rgb) == 3:  
+    elif len(rgb) == 3:
         return tuple(c / 255 for c in rgb)  
     else:
         raise ValueError("Invalid color format, expected 3 or 4 values in RGB or RGBA.")
@@ -16,13 +16,13 @@ def rgb_to_turtle_color(rgb):
 def draw_with_turtle(contours, scale=10):
     screen = turtle.Screen()
     screen.setup(width=800, height=600)
-    screen.bgcolor("black")  
+    screen.bgcolor("black")
     screen.title("Turtle Drawing")  
-    turtle.tracer(200, 0)  
+    turtle.tracer(200, 0)
 
     t = turtle.Turtle()
     t.speed(0)
-    t.pensize(1)  
+    t.pensize(1)
 
     min_x, max_x = float('inf'), float('-inf')
     min_y, max_y = float('inf'), float('-inf')
@@ -30,7 +30,7 @@ def draw_with_turtle(contours, scale=10):
     for contour in contours:
         points = contour['points']
         for point in points:
-            if isinstance(point, list) and len(point) == 2:  
+            if isinstance(point, list) and len(point) == 2:
                 x, y = point
                 min_x = min(min_x, x)
                 max_x = max(max_x, x)
@@ -44,36 +44,36 @@ def draw_with_turtle(contours, scale=10):
     t.goto(-center_x / scale, center_y / scale)  
     t.pendown()
 
-    # Menggambar setiap kontur
     for contour in contours:
-        points = contour['points']  
-        colors = contour['colors']  
+        points = contour['points']
+        colors = contour['colors']
 
         t.penup()
 
         for i, point in enumerate(points):
-            if isinstance(point, list) and len(point) == 2:  
+            if isinstance(point, list) and len(point) == 2:
                 x, y = point
-                t.goto((x - center_x) / scale, (center_y - y) / scale)  
+                t.goto((x - center_x) / scale, (center_y - y) / scale)
 
-                if i == 0:  
+                if i == 0:
                     t.pendown()
 
                 turtle_color = rgb_to_turtle_color(colors[i])  
                 t.pencolor(turtle_color)  
 
-            if i < len(points) - 1:  
+            if i < len(points) - 1:
                 next_point = points[i + 1]
                 if isinstance(next_point, list) and len(next_point) == 2:
                     x2, y2 = next_point
-                    t.goto((x2 - center_x) / scale, (center_y - y2) / scale)  
+                    t.goto((x2 - center_x) / scale, (center_y - y2) / scale)
 
-    turtle.update()  
+    turtle.update()
     turtle.done()
 
 def main(json_path):
     contour_data = load_json_data(json_path)
-    draw_with_turtle(contour_data, scale=1)  
+    draw_with_turtle(contour_data, scale=1)
 
-json_path = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\output\\image.json'  
-main(json_path)
+if __name__ == '__main__':
+    json_path = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\output\\image.json'
+    main(json_path)

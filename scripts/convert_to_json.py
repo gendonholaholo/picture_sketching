@@ -66,9 +66,9 @@ def main(image_path, output_json):
     contour_data = contours_to_json(all_contours, image)
 
     save_to_json(contour_data, output_json)
-    print(f"JSON berhasil disimpan di {output_json}")
+    print(f"JSON successfully saved at {output_json}")
 
-image_path = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\images\\image4.png'  
-output_json = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\output\\image.json'  
-
-main(image_path, output_json)
+if __name__ == '__main__':
+    image_path = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\images\\image4.png'  
+    output_json = 'E:\\Developer\\Program\\Python\\photo_drawing_turtle\\output\\image.json'  
+    main(image_path, output_json)
